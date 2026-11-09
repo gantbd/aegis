@@ -1,0 +1,20 @@
+[package]
+name = "aegis-authority"
+version = "0.0.1"
+edition = "2024"
+rust-version = "1.95"
+description = "A bounded authority engine for principals, delegation, and revocation"
+license = "MIT OR Apache-2.0"
+publish = false
+
+[lib]
+path = "src/lib.rs"
+
+[dependencies]
+
+[lints.rust]
+unsafe_code = "forbid"
+
+[lints.clippy]
+all = "warn"
+
