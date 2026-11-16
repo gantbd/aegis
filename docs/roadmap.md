@@ -45,24 +45,28 @@
 - [Qualified in two independent service processes] Hermes maps exact stream
   append to `Hermes/Submit` and denies read without `Observe` through public
   daemon traffic.
-- Add Agora, Chronos, and Vellum resource adapters.
+- Keep Agora, Chronos, and Vellum resource mappings in separately owned
+  adapters or consuming-engine compositions. Qualify each mapping through
+  Aegis's public client without importing its domain schema or making Aegis the
+  integration owner.
 - Keep credential verification and secret storage outside Aegis.
 
 ## Phase 4 — reusable administration surface and standalone CLI
 
-- Define `aegis-tui` as a composable presentation over the public client. It
-  owns bounded grant/revocation projection and exact confirmation state, but no
-  terminal lifecycle, argument parsing, daemon startup, credential acquisition,
-  global shortcuts, or process exit.
-- Provide a separate Aegis CLI/application composition root for interactive TUI
+- [Qualified] Define `aegis-tui` as a composable presentation over the public
+  client. It owns bounded grant/revocation projection and exact confirmation
+  state, but no terminal lifecycle, argument parsing, daemon startup, credential
+  acquisition, global shortcuts, or process exit.
+- [Qualified for the selected local profile] Provide a separate Aegis
+  CLI/application composition root for interactive TUI
   administration, bounded inspect/revoke operations, and exact-confirmed
   same-connection authority journeys. A one-shot command must never export a
   session-local grant handle; reusable issue/attenuate management requires a
   separately specified long-lived session owner. Headless operation must not
   synthesize UI authority.
-- Keep authority command guards under Aegis ownership. The TUI and Workbench
-  may invoke `aegis-admin-command`, but presentation packages must not own or
-  redefine confirmation, stale-state, or uncertainty semantics.
+- [Qualified] Keep authority command guards under Aegis ownership. The TUI and
+  Workbench may invoke `aegis-admin-command`, but presentation packages must not
+  own or redefine confirmation, stale-state, or uncertainty semantics.
 - [Qualified owner contract] `ManagedSessionV1` retains a bounded map from
   caller-chosen 128-bit operation names to private session-local grant handles,
   checks exact epoch and confirmation before issue/attenuation, returns only
@@ -78,14 +82,16 @@
   against the selected owner daemon prove disconnect abandonment, an empty fresh
   name set and deliberate rebuild under a new operation ID. Durable grant replay
   and lost-reply reconciliation remain nonclaims.
-- Let Workbench reuse the same TUI and optionally host Aegis's service runtime
-  under one executable. Aegis remains the sole authority decision owner; the
-  host supplies authenticated facts and routes typed requests only.
-- Qualify standalone interactive/headless and Workbench interactive/headless
-  paths with the same current-epoch, non-amplification, refusal, recovery, and
-  lost-reply laws. The bounded issue → attenuation → authorization journey is
-  qualified. The reusable manager, shared application contract, standalone and
-  Workbench shells, and live reconnect/rebuild path are qualified.
+- [Qualified for the selected local profile] Let Workbench reuse the same TUI
+  and supervise Aegis's sovereign service process under one executable. Aegis
+  remains the sole authority decision owner; Workbench passes explicit owner
+  inputs, attaches the public client, and records lifecycle receipts only.
+- [Qualified for the selected observation/administration profile] Standalone
+  interactive/headless and Workbench interactive/headless paths preserve the
+  same current-epoch, non-amplification, refusal, recovery, and lost-reply laws.
+  The bounded issue → attenuation → authorization journey is qualified. The
+  reusable manager, shared application contract, standalone and Workbench
+  shells, and live reconnect/rebuild path are qualified.
 
 Status: the standalone `aegis-daemon` now owns create/open recovery, exact
 kernel-peer mapping, explicit principal/session/role facts, continuous serving

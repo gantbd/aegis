@@ -90,6 +90,11 @@ recovery and independent model correspondence.
 - [x] Package the selected local profile as a standalone owner process with
   explicit namespace/peer/principal/session/role inputs, continuous serving,
   signal drain, create/open recovery and owned-socket cleanup.
+- [x] Qualify that exact sovereign process under Workbench supervision in
+  headless and interactive modes using the ordinary public client and
+  Aegis-owned command/session guards, with clean drain and durable reopen.
+  Workbench retains no grant handle, credential mapping, time, or authority
+  policy.
 - [x] Expose the private transport as a reusable public-client `ServicePort` with
   server-selected session binding and no service/engine types at the caller.
 - [x] Preserve embedded/private-service semantic parity and exact authority-epoch guards.
