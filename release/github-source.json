@@ -1,0 +1,16 @@
+{
+  "schema": 1,
+  "channel": "github-coordinated-source",
+  "aegisRepository": "https://github.com/gantbd/aegis",
+  "remoteReachabilityQualified": false,
+  "keystone": {
+    "repository": "https://github.com/gantbd/keystone",
+    "revision": "d0337e789375e911caed8b02b8a5a9065e29ac1e",
+    "relativePath": "../keystone"
+  },
+  "publishing": {
+    "cratesIo": "none",
+    "binaries": "none",
+    "signing": "none"
+  }
+}

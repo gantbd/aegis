@@ -21,11 +21,14 @@ jobs:
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
           path: aegis
+          persist-credentials: false
       - name: Check out Keystone dependency
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
           repository: gantbd/keystone
+          ref: d0337e789375e911caed8b02b8a5a9065e29ac1e
           path: keystone
+          persist-credentials: false
       - name: Install pinned Rust toolchain
         run: rustup toolchain install 1.95.0 --profile minimal --component clippy,rustfmt
       - name: Audit current RustSec advisories

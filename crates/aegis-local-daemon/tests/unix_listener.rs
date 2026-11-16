@@ -20,7 +20,7 @@ use keystone_storage::{
 use std::{
     convert::Infallible,
     fs,
-    io::{Read, Write},
+    io::{ErrorKind, Read, Write},
     os::unix::{fs::PermissionsExt, net::UnixStream},
     path::{Path, PathBuf},
     process::{Command, Stdio},
@@ -123,14 +123,31 @@ impl ServicePort for SocketPort {
     }
 }
 
-fn wait_for_socket(path: &Path) {
-    for _ in 0..200 {
-        if path.exists() {
-            return;
+fn connect_when_ready(path: &Path, child: &mut std::process::Child) -> UnixStream {
+    let mut last_error = None;
+    for _ in 0..1000 {
+        match UnixStream::connect(path) {
+            Ok(stream) => return stream,
+            Err(error)
+                if matches!(
+                    error.kind(),
+                    ErrorKind::NotFound | ErrorKind::ConnectionRefused
+                ) =>
+            {
+                last_error = Some(error);
+            }
+            Err(error) => panic!("daemon socket connection failed: {error}"),
+        }
+        if let Some(status) = child.try_wait().unwrap() {
+            let mut stderr = String::new();
+            if let Some(pipe) = child.stderr.as_mut() {
+                pipe.read_to_string(&mut stderr).unwrap();
+            }
+            panic!("daemon exited before its socket was ready ({status}): {stderr}");
         }
         thread::sleep(Duration::from_millis(5));
     }
-    panic!("daemon socket was not published");
+    panic!("daemon socket was not ready: {last_error:?}");
 }
 
 fn spawn_daemon(mode: &str, store: &Path, socket: &Path) -> std::process::Child {
@@ -288,9 +305,8 @@ fn run_subprocess_revocation_cycle() {
     let store = root.join("authority");
     let socket = root.join("daemon.sock");
 
-    let first = spawn_daemon("create", &store, &socket);
-    wait_for_socket(&socket);
-    let mut stream = UnixStream::connect(&socket).unwrap();
+    let mut first = spawn_daemon("create", &store, &socket);
+    let mut stream = connect_when_ready(&socket, &mut first);
     let session = decode_session_opened(&read_frame(&mut stream), LimitsV1::default()).unwrap();
     let mut client = AegisClient::new(session, SocketPort(stream));
     let ReplyV1::Accepted(OutcomeV1::GrantIssued(grant)) = client
@@ -337,9 +353,8 @@ fn run_subprocess_revocation_cycle() {
     );
     assert!(!socket.exists());
 
-    let second = spawn_daemon("open", &store, &socket);
-    wait_for_socket(&socket);
-    let mut stream = UnixStream::connect(&socket).unwrap();
+    let mut second = spawn_daemon("open", &store, &socket);
+    let mut stream = connect_when_ready(&socket, &mut second);
     let recovered_session =
         decode_session_opened(&read_frame(&mut stream), LimitsV1::default()).unwrap();
     let mut client = AegisClient::new(recovered_session, SocketPort(stream));

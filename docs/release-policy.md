@@ -1,12 +1,13 @@
 # Release and distribution policy
 
-Status: coordinated local source distribution only; no registry or binary
+Status: coordinated GitHub source distribution is being qualified; no registry or binary
 publication is authorized.
 
-Every Aegis package sets `publish = false`. The current checkout depends on a
-sibling Keystone checkout through exact local paths. Passing repository tests
-does not establish a self-contained source archive, remote Git dependency,
-registry package, signed artifact, installer or support lifetime.
+Every Aegis package sets `publish = false`. The current checkout depends on the
+exact sibling Keystone revision recorded in `release/github-source.json` through
+local paths. Passing repository tests does not establish a registry package,
+signed artifact, installer or support lifetime. GitHub source publication is a
+separate, source-only channel and does not weaken those nonclaims.
 
 The selected release unit contains the authority core, durable host, local
 storage and Unix peer-credential adapters, daemon and embedded SDK. It excludes
