@@ -38,6 +38,19 @@ fi
 
 echo 'Aegis command guard public-client closure verified'
 
+local_client=$(cargo tree -p aegis-local-client --edges normal --depth 1 --locked --offline)
+if [[ $(printf '%s\n' "$local_client" | wc -l | tr -d ' ') != 4 ]] \
+  || ! printf '%s\n' "$local_client" | rg -q 'aegis-client' \
+  || ! printf '%s\n' "$local_client" | rg -q 'aegis-protocol' \
+  || ! printf '%s\n' "$local_client" | rg -q 'aegis-wire' \
+  || printf '%s\n' "$local_client" | rg -q 'aegis-(authority|host|service|local-daemon)|keystone'; then
+  printf '%s\n' "$local_client" >&2
+  echo 'Aegis local client escaped its public client/protocol/wire closure' >&2
+  exit 1
+fi
+
+echo 'Aegis local client public transport closure verified'
+
 witness=$(cargo tree -p aegis-witness --edges normal --depth 1 --locked --offline)
 if [[ $(printf '%s\n' "$witness" | wc -l | tr -d ' ') != 2 ]] \
   || ! printf '%s\n' "$witness" | rg -q 'keystone-storage' \
@@ -85,7 +98,7 @@ daemon_dependencies=$(printf '%s\n' "$metadata" | node -e '
       .join(","));
   });
 ')
-expected_daemon_dependencies='aegis-client,aegis-host,aegis-protocol,aegis-service,aegis-wire,keystone-framing,keystone-storage,keystone-unix-listener'
+expected_daemon_dependencies='aegis-host,aegis-local-client,aegis-protocol,aegis-service,aegis-wire,keystone-framing,keystone-storage,keystone-unix-listener'
 [[ "$daemon_dependencies" == "$expected_daemon_dependencies" ]] || {
   echo "Aegis local daemon production dependencies: $daemon_dependencies" >&2
   exit 1

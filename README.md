@@ -42,10 +42,12 @@ sessions and are destroyed on disconnect or epoch change. Administrative status
 and grant/delegation/decision pages are bounded and do not reconstruct grants.
 `aegis-local-daemon` adds a mode-`0600` new-path Unix listener, authenticated
 session handshake, bounded length-prefixed dispatch, I/O deadlines, readiness and
-connection health, deterministic session teardown, and pre-dispatch versus
-outcome-unknown failure. Its native `connect` function returns the server-selected
-session plus an `aegis-client::ServicePort`, so peer adapters do not need to own
-socket framing. See the [local daemon profile](docs/local-daemon.md).
+connection health, and deterministic session teardown. The separate
+`aegis-local-client` owns the public Unix connection, server-selected session,
+framing, and pre-dispatch versus outcome-unknown classification without importing
+the authority engine, host, service, credential mapping, persistence, or daemon
+lifecycle. `aegis-local-daemon::unix` reexports that client for source
+compatibility. See the [local daemon profile](docs/local-daemon.md).
 `aegis-admin-command` owns exact-confirmation and same-connection guards for
 authority-bearing commands. Presentation and product shells may reuse those
 guards, but neither `aegis-tui` nor Workbench owns their semantics.

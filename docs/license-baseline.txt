@@ -6,6 +6,7 @@ license|aegis-conformance|0.1.0|MIT OR Apache-2.0
 license|aegis-daemon|0.1.0|MIT OR Apache-2.0
 license|aegis-host|0.0.1|MIT OR Apache-2.0
 license|aegis-local-daemon|0.1.0|MIT OR Apache-2.0
+license|aegis-local-client|0.1.0|MIT OR Apache-2.0
 license|aegis-local|0.0.1|MIT OR Apache-2.0
 license|aegis-protocol|0.1.0|MIT OR Apache-2.0
 license|aegis-sdk-embedded|0.1.0|MIT OR Apache-2.0

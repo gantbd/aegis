@@ -8,6 +8,7 @@ component|aegis-daemon|0.1.0
 component|aegis-host|0.0.1
 component|aegis-local|0.0.1
 component|aegis-local-daemon|0.1.0
+component|aegis-local-client|0.1.0
 component|aegis-protocol|0.1.0
 component|aegis-sdk-embedded|0.1.0
 component|aegis-service|0.1.0

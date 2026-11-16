@@ -25,6 +25,7 @@ members = [
   "crates/aegis-admin-command",
   "crates/aegis-conformance",
   "crates/aegis-local-daemon",
+  "crates/aegis-local-client",
   "crates/aegis-protocol",
   "crates/aegis-service",
   "crates/aegis-wire",

@@ -20,12 +20,16 @@ before dispatch. A failed write after service execution is `OutcomeUnknown`; the
 caller must reconnect and inspect/reconcile rather than retrying an authority
 mutation blindly.
 
-The companion `connect` path performs the same bounded handshake and returns the
-server-selected handle with a transport-neutral `aegis-client::ServicePort`.
+The companion `connect` path is owned by the separate `aegis-local-client`
+package. It performs the same bounded handshake and returns the server-selected
+handle with a transport-neutral `aegis-client::ServicePort`.
 Encoding failure occurs before send; request or reply I/O failure after dispatch
 begins is `OutcomeUnknown`. A caller-supplied handle different from the negotiated
 session is rejected locally. Peer adapters can therefore use the public client
-without duplicating private socket framing or importing service internals.
+without duplicating private socket framing or importing service internals. The
+client package depends only on `aegis-client`, `aegis-protocol`, and
+`aegis-wire`; `aegis-local-daemon::unix` reexports its public names for source
+compatibility.
 
 Health is content-free and reports readiness, active/accepted/refused connections,
 outcome-unknown replies and counter saturation. Drop removes the socket only when

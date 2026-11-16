@@ -84,6 +84,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "aegis-local-client"
+version = "0.1.0"
+dependencies = [
+ "aegis-client",
+ "aegis-protocol",
+ "aegis-wire",
+]
+
+[[package]]
 name = "aegis-local-daemon"
 version = "0.1.0"
 dependencies = [
@@ -91,6 +100,7 @@ dependencies = [
  "aegis-client",
  "aegis-host",
  "aegis-local",
+ "aegis-local-client",
  "aegis-protocol",
  "aegis-service",
  "aegis-wire",

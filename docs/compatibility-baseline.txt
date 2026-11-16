@@ -9,6 +9,7 @@ package|crates/aegis-admin-command/Cargo.toml|aegis-admin-command|0.1.0
 package|crates/aegis-client/Cargo.toml|aegis-client|0.1.0
 package|crates/aegis-conformance/Cargo.toml|aegis-conformance|0.1.0
 package|crates/aegis-local-daemon/Cargo.toml|aegis-local-daemon|0.1.0
+package|crates/aegis-local-client/Cargo.toml|aegis-local-client|0.1.0
 package|crates/aegis-protocol/Cargo.toml|aegis-protocol|0.1.0
 package|crates/aegis-service/Cargo.toml|aegis-service|0.1.0
 package|crates/aegis-wire/Cargo.toml|aegis-wire|0.1.0
