@@ -2,7 +2,9 @@
   "schema": 1,
   "channel": "github-coordinated-source",
   "aegisRepository": "https://github.com/gantbd/aegis",
-  "remoteReachabilityQualified": false,
+  "remoteReachabilityQualified": true,
+  "qualificationRevision": "b272106cf6d0093839a7d696c829bf8a408b0306",
+  "qualificationRun": "https://github.com/gantbd/aegis/actions/runs/43970924092",
   "keystone": {
     "repository": "https://github.com/gantbd/keystone",
     "revision": "2e4faf10ec0a70805aa1db1555f93c77fcf0a1e4",

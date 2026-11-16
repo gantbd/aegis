@@ -13,7 +13,8 @@ rg -q 'no registry or binary' docs/release-policy.md || { echo 'Aegis distributi
 rg -q 'not ready for a' docs/release-readiness.md || { echo 'Aegis readiness refusal missing' >&2; exit 1; }
 rg -q '"channel": "github-coordinated-source"' release/github-source.json || { echo 'Aegis GitHub source channel missing' >&2; exit 1; }
 rg -q '"revision": "2e4faf10ec0a70805aa1db1555f93c77fcf0a1e4"' release/github-source.json || { echo 'Aegis Keystone source revision drifted' >&2; exit 1; }
-rg -q '"remoteReachabilityQualified": false' release/github-source.json || { echo 'Aegis source profile claims unverified reachability' >&2; exit 1; }
+rg -q '"remoteReachabilityQualified": true' release/github-source.json || { echo 'Aegis source reachability is not qualified' >&2; exit 1; }
+rg -q '"qualificationRevision": "b272106cf6d0093839a7d696c829bf8a408b0306"' release/github-source.json || { echo 'Aegis source qualification revision drifted' >&2; exit 1; }
 rg -q '^performance:' Makefile || { echo 'Aegis performance gate missing' >&2; exit 1; }
 rg -q '^soak-process:' Makefile || { echo 'Aegis process soak gate missing' >&2; exit 1; }
 echo 'Aegis release contract denies registry and binary publication and pins the source profile'

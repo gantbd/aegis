@@ -1,7 +1,7 @@
 # Release readiness
 
-Status: source-verifiable durable local authority profile preparing for public
-GitHub source distribution; not ready for a network service, registry
+Status: source-verifiable durable local authority profile published through the
+qualified GitHub source channel; not ready for a network service, registry
 publication or production deployment.
 
 Established evidence is recorded in `docs/traceability.md`. Repository license
