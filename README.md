@@ -62,6 +62,9 @@ grant replay or lost-reply reconciliation.
 application protocol for both standalone and aggregate shells. It accepts no
 credentials or socket configuration and emits no numeric handles or transport
 error text. See the [managed administration session](docs/admin-session.md).
+The standalone Aegis and Workbench live gates invoke that same protocol and
+prove that disconnect abandons the local name set before a fresh connection
+deliberately rebuilds authority under a new operation ID.
 `aegis-unix-peer` supplies the selected local credential adapter. It reads the
 connected peer's effective UID/GID from the kernel, applies an exact bounded
 deployment mapping, and allocates a fresh namespaced Aegis session identity.

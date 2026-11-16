@@ -72,18 +72,20 @@
 - [Qualified application contract] `aegis-admin-session` provides one bounded,
   closed NDJSON protocol over that manager, with explicit command/line ceilings,
   no credential or handle fields, one response per input, and immediate terminal
-  stop after uncertainty. Reuse it from standalone and Workbench shells, then
-  qualify disconnect/reconnect abandonment and deliberate authority rebuild; do
-  not claim durable grant replay or lost-reply reconciliation.
+  stop after uncertainty.
+- [Qualified application paths] Standalone Aegis and Workbench shells call that
+  same parser/manager over the public client. Two separate shell processes
+  against the selected owner daemon prove disconnect abandonment, an empty fresh
+  name set and deliberate rebuild under a new operation ID. Durable grant replay
+  and lost-reply reconciliation remain nonclaims.
 - Let Workbench reuse the same TUI and optionally host Aegis's service runtime
   under one executable. Aegis remains the sole authority decision owner; the
   host supplies authenticated facts and routes typed requests only.
 - Qualify standalone interactive/headless and Workbench interactive/headless
   paths with the same current-epoch, non-amplification, refusal, recovery, and
   lost-reply laws. The bounded issue → attenuation → authorization journey is
-  qualified. The reusable manager and shared application contracts are qualified
-  in process; standalone/Workbench shell exposure and a live reconnect gate
-  remain open.
+  qualified. The reusable manager, shared application contract, standalone and
+  Workbench shells, and live reconnect/rebuild path are qualified.
 
 Status: the standalone `aegis-daemon` now owns create/open recovery, exact
 kernel-peer mapping, explicit principal/session/role facts, continuous serving
