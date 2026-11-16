@@ -5,7 +5,7 @@
   "remoteReachabilityQualified": false,
   "keystone": {
     "repository": "https://github.com/gantbd/keystone",
-    "revision": "d0337e789375e911caed8b02b8a5a9065e29ac1e",
+    "revision": "2e4faf10ec0a70805aa1db1555f93c77fcf0a1e4",
     "relativePath": "../keystone"
   },
   "publishing": {

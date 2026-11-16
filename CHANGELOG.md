@@ -5,6 +5,11 @@ Semantic Versioning once a public distribution contract is selected.
 
 ## [Unreleased]
 
+### Changed
+
+- Updated the exact Keystone profile and locked `rustix` dependency to address
+  RUSTSEC-2026-0486.
+
 ### Added
 
 - Added a lockfile-bound RustSec advisory attestation and live CI advisory gate.

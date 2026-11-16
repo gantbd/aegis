@@ -12,7 +12,7 @@ done < <(find . -name Cargo.toml -type f -not -path './target/*' -not -path './.
 rg -q 'no registry or binary' docs/release-policy.md || { echo 'Aegis distribution refusal missing' >&2; exit 1; }
 rg -q 'not ready for a' docs/release-readiness.md || { echo 'Aegis readiness refusal missing' >&2; exit 1; }
 rg -q '"channel": "github-coordinated-source"' release/github-source.json || { echo 'Aegis GitHub source channel missing' >&2; exit 1; }
-rg -q '"revision": "d0337e789375e911caed8b02b8a5a9065e29ac1e"' release/github-source.json || { echo 'Aegis Keystone source revision drifted' >&2; exit 1; }
+rg -q '"revision": "2e4faf10ec0a70805aa1db1555f93c77fcf0a1e4"' release/github-source.json || { echo 'Aegis Keystone source revision drifted' >&2; exit 1; }
 rg -q '"remoteReachabilityQualified": false' release/github-source.json || { echo 'Aegis source profile claims unverified reachability' >&2; exit 1; }
 rg -q '^performance:' Makefile || { echo 'Aegis performance gate missing' >&2; exit 1; }
 rg -q '^soak-process:' Makefile || { echo 'Aegis process soak gate missing' >&2; exit 1; }
