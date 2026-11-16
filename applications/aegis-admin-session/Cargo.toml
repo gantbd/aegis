@@ -1,0 +1,26 @@
+[package]
+name = "aegis-admin-session"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.95"
+license = "MIT OR Apache-2.0"
+publish = false
+description = "Bounded long-lived application protocol for Aegis authority administration"
+
+[dependencies]
+aegis-admin-command = { version = "=0.1.0", path = "../../crates/aegis-admin-command" }
+aegis-client = { version = "=0.1.0", path = "../../crates/aegis-client" }
+aegis-protocol = { version = "=0.1.0", path = "../../crates/aegis-protocol" }
+serde = { version = "=1.0.229", features = ["derive"] }
+serde_json = "=1.0.151"
+
+[dev-dependencies]
+aegis-authority = { version = "=0.0.1", path = "../.." }
+aegis-host = { version = "=0.0.1", path = "../../host/aegis-host" }
+aegis-service = { version = "=0.1.0", path = "../../crates/aegis-service" }
+keystone-storage = { version = "=0.0.1", path = "../../../keystone/crates/keystone-storage" }
+
+[lints.rust]
+unsafe_code = "forbid"
+[lints.clippy]
+all = "warn"

@@ -58,6 +58,10 @@ reply terminally fences the owner. Recovery is explicit abandonment: disconnect
 destroys the session-local grants, then a caller may reconnect and deliberately
 rebuild authority under new operation names. The manager does not claim durable
 grant replay or lost-reply reconciliation.
+`aegis-admin-session` wraps that manager in one bounded, closed NDJSON
+application protocol for both standalone and aggregate shells. It accepts no
+credentials or socket configuration and emits no numeric handles or transport
+error text. See the [managed administration session](docs/admin-session.md).
 `aegis-unix-peer` supplies the selected local credential adapter. It reads the
 connected peer's effective UID/GID from the kernel, applies an exact bounded
 deployment mapping, and allocates a fresh namespaced Aegis session identity.

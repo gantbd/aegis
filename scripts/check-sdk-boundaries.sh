@@ -50,6 +50,27 @@ fi
 echo 'Aegis rollback witness mechanism-only dependency closure verified'
 
 metadata=$(cargo metadata --no-deps --format-version 1 --locked --offline)
+admin_session_dependencies=$(printf '%s\n' "$metadata" | node -e '
+  let input = "";
+  process.stdin.setEncoding("utf8");
+  process.stdin.on("data", chunk => input += chunk);
+  process.stdin.on("end", () => {
+    const pkg = JSON.parse(input).packages.find(candidate => candidate.name === "aegis-admin-session");
+    if (!pkg) process.exit(2);
+    process.stdout.write(pkg.dependencies
+      .filter(dependency => dependency.kind === null)
+      .map(dependency => dependency.name)
+      .sort()
+      .join(","));
+  });
+')
+expected_admin_session_dependencies='aegis-admin-command,aegis-client,aegis-protocol,serde,serde_json'
+[[ "$admin_session_dependencies" == "$expected_admin_session_dependencies" ]] || {
+  echo "Aegis administration session production dependencies: $admin_session_dependencies" >&2
+  exit 1
+}
+echo 'Aegis administration session public-client application boundary verified'
+
 daemon_dependencies=$(printf '%s\n' "$metadata" | node -e '
   let input = "";
   process.stdin.setEncoding("utf8");
