@@ -1,5 +1,5 @@
-use aegis_client::{AdminClient, ClientError, ReadOnlyClient, ServicePort};
-use aegis_protocol::{CommandV1, OutcomeV1, ReplyV1, SessionHandleV1};
+use aegis_client::{AdminClient, AuthorityClient, ClientError, ReadOnlyClient, ServicePort};
+use aegis_protocol::{CommandV1, OutcomeV1, ReplyV1, ScopeV1, SessionHandleV1};
 
 #[derive(Default)]
 struct Port(Vec<CommandV1>);
@@ -11,6 +11,29 @@ impl ServicePort for Port {
         self.0.push(command);
         Ok(ReplyV1::Accepted(OutcomeV1::EpochRevoked { epoch: 2 }))
     }
+}
+
+#[test]
+fn mutation_facade_can_borrow_a_live_port_without_owning_its_connection() {
+    let mut port = Port::default();
+    let scopes = vec![ScopeV1 {
+        engine: aegis_protocol::EngineNamespaceV1::Agora,
+        resource: [3; 16],
+        actions: 1 << aegis_protocol::ActionV1::Submit as u8,
+    }];
+    {
+        let mut authority = AuthorityClient::new(SessionHandleV1(7), &mut port);
+        authority.issue(2, 10, 20, scopes.clone()).unwrap();
+    }
+    assert_eq!(
+        port.0,
+        vec![CommandV1::Issue {
+            expected_epoch: 2,
+            now: 10,
+            expires_at: 20,
+            scopes,
+        }]
+    );
 }
 
 #[test]

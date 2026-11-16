@@ -13,6 +13,18 @@ pub trait ServicePort {
     ) -> Result<ReplyV1, Self::Error>;
 }
 
+impl<P: ServicePort + ?Sized> ServicePort for &mut P {
+    type Error = P::Error;
+
+    fn execute(
+        &mut self,
+        session: SessionHandleV1,
+        command: CommandV1,
+    ) -> Result<ReplyV1, Self::Error> {
+        (**self).execute(session, command)
+    }
+}
+
 pub struct Client<P> {
     session: SessionHandleV1,
     port: P,
