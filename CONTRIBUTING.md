@@ -13,7 +13,8 @@ make check
 ```
 
 The process and Unix-socket tests require an environment that permits local
-subprocesses and Unix-domain sockets.
+subprocesses and Unix-domain sockets. The repository gates also require
+`ripgrep` (`rg`).
 
 - Keep every crate non-publishable unless the release policy changes in the
   same reviewed contribution.
