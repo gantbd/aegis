@@ -46,6 +46,9 @@ connection health, deterministic session teardown, and pre-dispatch versus
 outcome-unknown failure. Its native `connect` function returns the server-selected
 session plus an `aegis-client::ServicePort`, so peer adapters do not need to own
 socket framing. See the [local daemon profile](docs/local-daemon.md).
+`aegis-admin-command` owns exact-confirmation and same-connection guards for
+authority-bearing commands. Presentation and product shells may reuse those
+guards, but neither `aegis-tui` nor Workbench owns their semantics.
 `aegis-unix-peer` supplies the selected local credential adapter. It reads the
 connected peer's effective UID/GID from the kernel, applies an exact bounded
 deployment mapping, and allocates a fresh namespaced Aegis session identity.

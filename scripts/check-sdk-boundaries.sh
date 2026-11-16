@@ -26,6 +26,18 @@ fi
 
 echo 'Aegis conformance suite public-protocol dependency closure verified'
 
+admin_command=$(cargo tree -p aegis-admin-command --edges normal --depth 1 --locked --offline)
+if [[ $(printf '%s\n' "$admin_command" | wc -l | tr -d ' ') != 3 ]] \
+  || ! printf '%s\n' "$admin_command" | rg -q 'aegis-client' \
+  || ! printf '%s\n' "$admin_command" | rg -q 'aegis-protocol' \
+  || printf '%s\n' "$admin_command" | rg -q 'aegis-(authority|host|service|wire|local)|keystone|ratatui|crossterm'; then
+  printf '%s\n' "$admin_command" >&2
+  echo 'Aegis command guard escaped its public-client closure' >&2
+  exit 1
+fi
+
+echo 'Aegis command guard public-client closure verified'
+
 witness=$(cargo tree -p aegis-witness --edges normal --depth 1 --locked --offline)
 if [[ $(printf '%s\n' "$witness" | wc -l | tr -d ' ') != 2 ]] \
   || ! printf '%s\n' "$witness" | rg -q 'keystone-storage' \

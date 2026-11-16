@@ -21,5 +21,5 @@ while IFS='|' read -r kind fixture digest; do
   [[ "$actual_digest" == "$digest" ]] || { echo "Aegis compatibility fixture drifted: $fixture" >&2; exit 1; }
 done < "$baseline"
 cargo metadata --no-deps --format-version 1 --locked --offline >/dev/null
-echo 'Aegis compatibility baseline closes over 13 packages and canonical empty/live checkpoints'
+echo 'Aegis compatibility baseline closes over 14 packages and canonical empty/live checkpoints'
 

@@ -95,6 +95,9 @@ recovery and independent model correspondence.
 - [x] Preserve embedded/private-service semantic parity and exact authority-epoch guards.
 - [x] Add bounded administrative and read-only client facades; MCP, if added, is a
   projection of the native protocol and carries no implicit authority.
+- [x] Own exact-confirmation and same-connection authority command guards in
+  `aegis-admin-command`; presentation and Workbench reuse this public-client
+  boundary without acquiring command semantics.
 
 Exit: embedded and local-daemon acceptance journeys exercise the same authority
 contract, and no wire value can reconstruct or transfer a native grant.

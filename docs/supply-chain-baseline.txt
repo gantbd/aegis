@@ -1,5 +1,6 @@
 # Exact Cargo.lock component inventory for the qualified source profile.
 component|aegis-authority|0.0.1
+component|aegis-admin-command|0.1.0
 component|aegis-client|0.1.0
 component|aegis-conformance|0.1.0
 component|aegis-daemon|0.1.0

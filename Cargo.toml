@@ -21,6 +21,7 @@ members = [
   "adapters/aegis-unix-peer",
   "adapters/aegis-witness",
   "crates/aegis-client",
+  "crates/aegis-admin-command",
   "crates/aegis-conformance",
   "crates/aegis-local-daemon",
   "crates/aegis-protocol",

@@ -60,6 +60,9 @@
   session-local grant handle; reusable issue/attenuate management requires a
   separately specified long-lived session owner. Headless operation must not
   synthesize UI authority.
+- Keep authority command guards under Aegis ownership. The TUI and Workbench
+  may invoke `aegis-admin-command`, but presentation packages must not own or
+  redefine confirmation, stale-state, or uncertainty semantics.
 - Let Workbench reuse the same TUI and optionally host Aegis's service runtime
   under one executable. Aegis remains the sole authority decision owner; the
   host supplies authenticated facts and routes typed requests only.
