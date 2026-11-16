@@ -55,12 +55,16 @@
   terminal lifecycle, argument parsing, daemon startup, credential acquisition,
   global shortcuts, or process exit.
 - Provide a separate Aegis CLI/application composition root for interactive TUI
-  administration and bounded headless issue, attenuate, inspect, and revoke
-  operations. Headless operation must not synthesize UI authority.
+  administration, bounded inspect/revoke operations, and exact-confirmed
+  same-connection authority journeys. A one-shot command must never export a
+  session-local grant handle; reusable issue/attenuate management requires a
+  separately specified long-lived session owner. Headless operation must not
+  synthesize UI authority.
 - Let Workbench reuse the same TUI and optionally host Aegis's service runtime
   under one executable. Aegis remains the sole authority decision owner; the
   host supplies authenticated facts and routes typed requests only.
 - Qualify standalone interactive/headless and Workbench interactive/headless
   paths with the same current-epoch, non-amplification, refusal, recovery, and
-  lost-reply laws.
+  lost-reply laws. The bounded issue → attenuation → authorization journey is
+  qualified; long-lived reusable grant management remains open.
 
