@@ -9,8 +9,9 @@ compile_error!("aegis-local-client currently qualifies only Unix hosts");
 
 use aegis_client::ServicePort;
 use aegis_protocol::{CommandV1, ReplyV1, SessionHandleV1};
+pub use aegis_wire::LimitsV1;
 use aegis_wire::{
-    CodecErrorV1, LimitsV1, RequestFrameV1, decode_reply, decode_session_opened, encode_request,
+    CodecErrorV1, RequestFrameV1, decode_reply, decode_session_opened, encode_request,
 };
 use std::{
     io::{self, Read, Write},
