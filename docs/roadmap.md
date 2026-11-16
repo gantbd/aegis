@@ -68,3 +68,10 @@
   lost-reply laws. The bounded issue → attenuation → authorization journey is
   qualified; long-lived reusable grant management remains open.
 
+Status: the standalone `aegis-daemon` now owns create/open recovery, exact
+kernel-peer mapping, explicit principal/session/role facts, continuous serving
+and signal drain. Workbench supervises that same owner process in interactive
+and headless modes, attaches through the ordinary public client, records a
+shutdown receipt and proves subsequent durable reopen. Workbench links no Aegis
+engine, service, storage or authentication implementation.
+

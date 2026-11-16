@@ -15,6 +15,7 @@ path = "src/lib.rs"
 [workspace]
 members = [
   ".",
+  "applications/aegis-daemon",
   "host/aegis-host",
   "adapters/aegis-local",
   "adapters/aegis-unix-peer",

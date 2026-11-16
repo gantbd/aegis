@@ -14,6 +14,10 @@ repository makes no general upgrade or downgrade compatibility promise.
 session allocator. Mapping configuration and session namespace are source-level
 V1 inputs; no credential file or wire format is defined.
 
+`aegis-daemon` exposes a source-level application invocation contract for exact
+create/open, namespace, peer, principal, session and role inputs. It is not a
+portable configuration-file or remote-service compatibility promise.
+
 `aegis-witness` compares the exact opaque checkpoint revision and bytes. Its V1
 decision algebra and fail-closed ordering are source contracts, but it defines no
 external witness wire format or storage schema.

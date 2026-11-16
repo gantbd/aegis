@@ -87,6 +87,9 @@ recovery and independent model correspondence.
   lookup and hostile same-UID separation remain outside this profile.
 - [x] Add a private local transport and daemon with bounded frames, deadlines,
   lifetime ownership, health/readiness and `not_sent` versus `outcome_unknown`.
+- [x] Package the selected local profile as a standalone owner process with
+  explicit namespace/peer/principal/session/role inputs, continuous serving,
+  signal drain, create/open recovery and owned-socket cleanup.
 - [x] Expose the private transport as a reusable public-client `ServicePort` with
   server-selected session binding and no service/engine types at the caller.
 - [x] Preserve embedded/private-service semantic parity and exact authority-epoch guards.

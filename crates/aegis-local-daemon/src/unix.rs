@@ -15,6 +15,7 @@ use std::{
     io::{self, Read, Write},
     os::unix::net::UnixStream,
     path::Path,
+    sync::atomic::{AtomicBool, Ordering},
     time::Duration,
 };
 
@@ -95,11 +96,38 @@ impl<S: CheckpointStore, A: Authenticator> Daemon<S, A> {
     /// sequence and closes the session regardless of reply success.
     pub fn serve_next(&mut self) -> Result<(), DaemonErrorV1<A::Error, S::Error>> {
         let (mut stream, _) = self.listener.accept().map_err(DaemonErrorV1::Io)?;
+        self.serve_accepted(&mut stream)
+    }
+
+    /// Serves complete authenticated connections until a caller-owned stop
+    /// flag is set. A shutdown requester wakes the blocking accept with a
+    /// local connection after setting the flag; that wake connection is never
+    /// authenticated or dispatched.
+    pub fn serve_until(
+        &mut self,
+        stop: &AtomicBool,
+    ) -> Result<(), DaemonErrorV1<A::Error, S::Error>> {
+        loop {
+            if stop.load(Ordering::Acquire) {
+                return Ok(());
+            }
+            let (mut stream, _) = self.listener.accept().map_err(DaemonErrorV1::Io)?;
+            if stop.load(Ordering::Acquire) {
+                return Ok(());
+            }
+            self.serve_accepted(&mut stream)?;
+        }
+    }
+
+    fn serve_accepted(
+        &mut self,
+        stream: &mut UnixStream,
+    ) -> Result<(), DaemonErrorV1<A::Error, S::Error>> {
         increment(
             &mut self.health.active_connections,
             &mut self.health.saturated,
         );
-        let result = self.serve_stream(&mut stream);
+        let result = self.serve_stream(stream);
         self.health.active_connections = self.health.active_connections.saturating_sub(1);
         if result.is_err() {
             increment(

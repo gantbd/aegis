@@ -2,6 +2,7 @@
 component|aegis-authority|0.0.1
 component|aegis-client|0.1.0
 component|aegis-conformance|0.1.0
+component|aegis-daemon|0.1.0
 component|aegis-host|0.0.1
 component|aegis-local|0.0.1
 component|aegis-local-daemon|0.1.0
@@ -26,5 +27,7 @@ component|linux-raw-sys|0.12.1
 component|memoffset|0.9.1
 component|nix|0.29.0
 component|rustix|1.1.4
+component|signal-hook|0.3.18
+component|signal-hook-registry|1.4.8
 component|windows-link|0.2.1
 component|windows-sys|0.61.2

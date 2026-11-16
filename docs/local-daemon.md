@@ -1,8 +1,7 @@
 # Local daemon profile
 
 Status: qualified bounded-session private Unix connection profile with a selected
-OS peer-credential adapter; executable packaging and continuous accept-loop
-supervision remain open.
+OS peer-credential adapter and standalone owner application.
 
 `aegis-local-daemon` binds only a new filesystem path and refuses replacement of
 an existing entry. The created Unix socket is mode `0600`; the embedding launcher
@@ -42,5 +41,10 @@ the first daemon loses a committed revocation reply, and the second reopens the
 same directory, observes recovery epoch 2, rejects the old handle and validates
 freshly issued authority. A separate daemon journey accepts the mapped kernel
 peer and rejects an unknown peer before handshake or authority mutation. This is
-not multi-user hostile-host or hostile same-UID defense, daemon
-installer, launch supervisor or remote-network profile.
+not multi-user hostile-host or hostile same-UID defense, daemon installer or
+remote-network profile. `aegis-daemon` supplies the local launch composition: it
+requires canonical explicit authority, principal, session namespace and role
+inputs, serves until SIGINT/SIGTERM, wakes a blocked accept without authenticating
+the wake connection, and removes only its owned socket. It is independently
+usable and may be supervised by Workbench; in either case Aegis remains the
+authority and authentication owner.

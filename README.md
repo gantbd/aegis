@@ -60,7 +60,12 @@ checkpoint correspondence without changing the default local profile.
 The test-only `aegis-conformance` crate provides a public-protocol-only suite for
 session isolation, non-amplifying attenuation, revocation and durable recovery;
 it carries no authenticator, grant material, peer mapping or runtime policy.
-Executable packaging and continuous supervision remain open.
+`applications/aegis-daemon` is the selected standalone owner shell. It accepts
+explicit create/open mode, durable directory, socket, authority namespace,
+kernel peer mapping, principal, session namespace, and administrator/principal
+role. It installs a continuous shutdown-aware accept loop and owns signal-driven
+socket cleanup without moving authentication or authority policy into a UI or
+product host.
 
 ## Qualified peer mappings
 

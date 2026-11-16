@@ -3,6 +3,7 @@ package|Cargo.toml|aegis-authority|0.0.1
 package|adapters/aegis-local/Cargo.toml|aegis-local|0.0.1
 package|adapters/aegis-unix-peer/Cargo.toml|aegis-unix-peer|0.1.0
 package|adapters/aegis-witness/Cargo.toml|aegis-witness|0.1.0
+package|applications/aegis-daemon/Cargo.toml|aegis-daemon|0.1.0
 package|crates/aegis-client/Cargo.toml|aegis-client|0.1.0
 package|crates/aegis-conformance/Cargo.toml|aegis-conformance|0.1.0
 package|crates/aegis-local-daemon/Cargo.toml|aegis-local-daemon|0.1.0

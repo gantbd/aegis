@@ -10,6 +10,8 @@ the local Aegis and Keystone packages as well as Keystone's locked platform
 dependencies.
 The selected `aegis-unix-peer` adapter adds the pinned `nix` graph solely for
 safe OS peer-credential retrieval; its direct dependency closure is enforced.
+The standalone `aegis-daemon` adds the pinned `signal-hook` graph solely for
+bounded SIGINT/SIGTERM ownership and accept-loop wakeup.
 The optional `aegis-witness` production closure contains only
 `keystone-storage`; concrete witness clients, credentials and transports remain
 outside this source profile.
