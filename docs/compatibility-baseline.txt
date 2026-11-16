@@ -1,0 +1,16 @@
+# Exact package inventory and digest-pinned current V1 fixtures.
+package|Cargo.toml|aegis-authority|0.0.1
+package|adapters/aegis-local/Cargo.toml|aegis-local|0.0.1
+package|adapters/aegis-unix-peer/Cargo.toml|aegis-unix-peer|0.1.0
+package|adapters/aegis-witness/Cargo.toml|aegis-witness|0.1.0
+package|crates/aegis-client/Cargo.toml|aegis-client|0.1.0
+package|crates/aegis-conformance/Cargo.toml|aegis-conformance|0.1.0
+package|crates/aegis-local-daemon/Cargo.toml|aegis-local-daemon|0.1.0
+package|crates/aegis-protocol/Cargo.toml|aegis-protocol|0.1.0
+package|crates/aegis-service/Cargo.toml|aegis-service|0.1.0
+package|crates/aegis-wire/Cargo.toml|aegis-wire|0.1.0
+package|host/aegis-host/Cargo.toml|aegis-host|0.0.1
+package|sdk/embedded/Cargo.toml|aegis-sdk-embedded|0.1.0
+fixture|tests/fixtures/checkpoint-v1-empty.hex|032bf307cd3ef529f7517c83a81f3da889150f3ff32b71df3ad066e4830d6ef0
+fixture|tests/fixtures/checkpoint-v1-live.hex|e526af62039c2c0344273ddd73d48838c8b051afeea7733714939aa17c587c58
+

@@ -1,0 +1,27 @@
+[package]
+name = "aegis-unix-peer"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.95"
+license = "MIT OR Apache-2.0"
+description = "OS peer-credential authentication adapter for the Aegis local daemon"
+publish = false
+
+[dependencies]
+aegis-authority = { path = "../..", version = "=0.0.1" }
+aegis-local-daemon = { path = "../../crates/aegis-local-daemon", version = "=0.1.0" }
+aegis-service = { path = "../../crates/aegis-service", version = "=0.1.0" }
+nix = { version = "=0.29.0", default-features = false, features = ["socket", "user"] }
+
+[dev-dependencies]
+aegis-client = { path = "../../crates/aegis-client", version = "=0.1.0" }
+aegis-host = { path = "../../host/aegis-host", version = "=0.0.1" }
+aegis-protocol = { path = "../../crates/aegis-protocol", version = "=0.1.0" }
+aegis-wire = { path = "../../crates/aegis-wire", version = "=0.1.0" }
+keystone-storage = { path = "../../../keystone/crates/keystone-storage", version = "=0.0.1" }
+
+[lints.rust]
+unsafe_code = "forbid"
+
+[lints.clippy]
+all = "warn"

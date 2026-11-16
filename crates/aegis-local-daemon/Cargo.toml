@@ -1,0 +1,28 @@
+[package]
+name = "aegis-local-daemon"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.95"
+license = "MIT OR Apache-2.0"
+description = "Bounded authenticated local connection loop for Aegis"
+publish = false
+
+[dependencies]
+aegis-client = { path = "../aegis-client", version = "=0.1.0" }
+aegis-protocol = { path = "../aegis-protocol", version = "=0.1.0" }
+aegis-host = { path = "../../host/aegis-host", version = "=0.0.1" }
+aegis-service = { path = "../aegis-service", version = "=0.1.0" }
+aegis-wire = { path = "../aegis-wire", version = "=0.1.0" }
+keystone-framing = { path = "../../../keystone/crates/keystone-framing", version = "=0.0.1" }
+keystone-storage = { path = "../../../keystone/crates/keystone-storage", version = "=0.0.1" }
+keystone-unix-listener = { path = "../../../keystone/crates/keystone-unix-listener", version = "=0.0.1" }
+
+[dev-dependencies]
+aegis-authority = { path = "../..", version = "=0.0.1" }
+aegis-local = { path = "../../adapters/aegis-local", version = "=0.0.1" }
+
+[lints.rust]
+unsafe_code = "forbid"
+
+[lints.clippy]
+all = "warn"

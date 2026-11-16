@@ -1,0 +1,23 @@
+[package]
+name = "aegis-service"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.95"
+license = "MIT OR Apache-2.0"
+description = "Bounded authenticated-session service boundary for Aegis"
+publish = false
+
+[dependencies]
+aegis-authority = { path = "../..", version = "=0.0.1" }
+aegis-host = { path = "../../host/aegis-host", version = "=0.0.1" }
+aegis-protocol = { path = "../aegis-protocol", version = "=0.1.0" }
+keystone-storage = { path = "../../../keystone/crates/keystone-storage", version = "=0.0.1" }
+
+[dev-dependencies]
+aegis-conformance = { path = "../aegis-conformance", version = "=0.1.0" }
+
+[lints.rust]
+unsafe_code = "forbid"
+
+[lints.clippy]
+all = "warn"

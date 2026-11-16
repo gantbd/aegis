@@ -12,6 +12,23 @@ path = "src/lib.rs"
 
 [dependencies]
 
+[workspace]
+members = [
+  ".",
+  "host/aegis-host",
+  "adapters/aegis-local",
+  "adapters/aegis-unix-peer",
+  "adapters/aegis-witness",
+  "crates/aegis-client",
+  "crates/aegis-conformance",
+  "crates/aegis-local-daemon",
+  "crates/aegis-protocol",
+  "crates/aegis-service",
+  "crates/aegis-wire",
+  "sdk/embedded",
+]
+resolver = "3"
+
 [lints.rust]
 unsafe_code = "forbid"
 

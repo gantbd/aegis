@@ -6,6 +6,8 @@
 
 pub const PROJECT_STAGE: &str = "volatile-authority-reference";
 
+pub mod persistence;
+
 macro_rules! id {
     ($name:ident) => {
         #[derive(Clone, Copy, Eq, Hash, Ord, PartialEq, PartialOrd)]
@@ -178,6 +180,12 @@ pub enum LimitsError {
     Disabled,
 }
 
+/// Opaque native capability, deliberately not cloneable or serializable.
+///
+/// ```compile_fail
+/// use aegis_authority::GrantV1;
+/// fn duplicate(grant: &GrantV1) -> GrantV1 { grant.clone() }
+/// ```
 #[derive(Eq, PartialEq)]
 pub struct GrantV1 {
     grant_id: [u8; 16],
@@ -297,6 +305,14 @@ impl std::fmt::Debug for Engine {
 }
 
 impl Engine {
+    pub const fn epoch(&self) -> AuthorityEpoch {
+        self.epoch
+    }
+
+    pub const fn allocation_frontiers(&self) -> (u64, u64) {
+        (self.next_grant, self.next_decision)
+    }
+
     pub fn try_new(engine_id: EngineId, limits: Limits) -> Result<Self, LimitsError> {
         if limits.max_scopes_per_grant == 0 || limits.max_delegation_depth == 0 {
             return Err(LimitsError::Disabled);
@@ -356,6 +372,9 @@ impl Engine {
             .any(|scope| scope.actions.contains(ActionV1::Delegate))
         {
             return Err(RefusalV1::NotAuthorized);
+        }
+        if scopes.len() > self.limits.max_scopes_per_grant {
+            return Err(RefusalV1::ScopeLimit);
         }
         if scopes.iter().any(|child| {
             !parent.descriptor.scopes.iter().any(|ancestor| {

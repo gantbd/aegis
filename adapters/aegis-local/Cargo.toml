@@ -1,0 +1,21 @@
+[package]
+name = "aegis-local"
+version = "0.0.1"
+edition = "2024"
+rust-version = "1.95"
+license = "MIT OR Apache-2.0"
+publish = false
+description = "Exclusive local filesystem delivery profile for Aegis"
+
+[dependencies]
+aegis-authority = { path = "../..", version = "=0.0.1" }
+aegis-host = { path = "../../host/aegis-host", version = "=0.0.1" }
+keystone-storage-directory = { path = "../../../keystone/crates/keystone-storage-directory", version = "=0.0.1" }
+
+[dev-dependencies]
+keystone-storage = { path = "../../../keystone/crates/keystone-storage", version = "=0.0.1" }
+
+[lints.rust]
+unsafe_code = "forbid"
+[lints.clippy]
+all = "warn"
