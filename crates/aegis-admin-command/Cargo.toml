@@ -11,6 +11,12 @@ description = "Exact-confirmation guards for Aegis administrative commands"
 aegis-client = { version = "=0.1.0", path = "../aegis-client" }
 aegis-protocol = { version = "=0.1.0", path = "../aegis-protocol" }
 
+[dev-dependencies]
+aegis-authority = { version = "=0.0.1", path = "../.." }
+aegis-host = { version = "=0.0.1", path = "../../host/aegis-host" }
+aegis-service = { version = "=0.1.0", path = "../aegis-service" }
+keystone-storage = { version = "=0.0.1", path = "../../../keystone/crates/keystone-storage" }
+
 [lints.rust]
 unsafe_code = "forbid"
 [lints.clippy]

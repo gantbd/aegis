@@ -49,6 +49,15 @@ socket framing. See the [local daemon profile](docs/local-daemon.md).
 `aegis-admin-command` owns exact-confirmation and same-connection guards for
 authority-bearing commands. Presentation and product shells may reuse those
 guards, but neither `aegis-tui` nor Workbench owns their semantics.
+Its bounded `ManagedSessionV1` owner keeps reusable grants behind caller-chosen
+128-bit operation names on one authenticated connection. Numeric service
+handles never escape the owner. Issue and attenuation first observe the exact
+expected epoch; every authority-bearing request requires a literal rendering
+of its operation, bounds and scope; and any uncertain delivery or impossible
+reply terminally fences the owner. Recovery is explicit abandonment: disconnect
+destroys the session-local grants, then a caller may reconnect and deliberately
+rebuild authority under new operation names. The manager does not claim durable
+grant replay or lost-reply reconciliation.
 `aegis-unix-peer` supplies the selected local credential adapter. It reads the
 connected peer's effective UID/GID from the kernel, applies an exact bounded
 deployment mapping, and allocates a fresh namespaced Aegis session identity.

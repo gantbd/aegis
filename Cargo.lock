@@ -6,8 +6,12 @@ version = 4
 name = "aegis-admin-command"
 version = "0.1.0"
 dependencies = [
+ "aegis-authority",
  "aegis-client",
+ "aegis-host",
  "aegis-protocol",
+ "aegis-service",
+ "keystone-storage",
 ]
 
 [[package]]

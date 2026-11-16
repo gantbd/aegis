@@ -11,6 +11,9 @@ use aegis_protocol::{
     SessionHandleV1,
 };
 
+mod managed;
+pub use managed::*;
+
 pub const CAPABILITY: &str = "authority.revoke-epoch.v1";
 pub const JOURNEY_CAPABILITY: &str = "authority.attenuate-authorize-once.v1";
 
