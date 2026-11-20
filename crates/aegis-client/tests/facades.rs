@@ -25,16 +25,20 @@ fn mutation_facade_can_borrow_a_live_port_without_owning_its_connection() {
     }];
     {
         let mut authority = AuthorityClient::new(SessionHandleV1(7), &mut port);
+        authority.current_principal().unwrap();
         authority.issue(2, 10, 20, scopes.clone()).unwrap();
     }
     assert_eq!(
         port.0,
-        vec![CommandV1::Issue {
-            expected_epoch: 2,
-            now: 10,
-            expires_at: 20,
-            scopes,
-        }]
+        vec![
+            CommandV1::CurrentPrincipal,
+            CommandV1::Issue {
+                expected_epoch: 2,
+                now: 10,
+                expires_at: 20,
+                scopes,
+            }
+        ]
     );
 }
 

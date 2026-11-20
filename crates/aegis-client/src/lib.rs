@@ -64,6 +64,12 @@ impl<P: ServicePort> AuthorityClient<P> {
         Self(Client::new(session, port))
     }
 
+    /// Observe attribution on the same exact session used by subsequent
+    /// authority calls; this grants no authority by itself.
+    pub fn current_principal(&mut self) -> Result<ReplyV1, P::Error> {
+        self.0.current_principal()
+    }
+
     pub fn issue(
         &mut self,
         expected_epoch: u64,
