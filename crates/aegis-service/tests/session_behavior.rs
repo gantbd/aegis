@@ -64,6 +64,48 @@ fn issue() -> CommandV1 {
 }
 
 #[test]
+fn current_principal_is_derived_from_the_exact_live_session() {
+    let authority_id = EngineId::new([1; 16]);
+    let authority =
+        DurableAuthority::create_new(Store::default(), authority_id, Limits::default()).unwrap();
+    let mut service = Service::new(authority, authority_id, ServiceLimitsV1::default()).unwrap();
+    let first = service
+        .open_session(AuthenticatedSessionV1 {
+            principal: PrincipalId::new([2; 16]),
+            session: SessionId::new([3; 16]),
+            administrator: false,
+        })
+        .unwrap();
+    let second = service
+        .open_session(AuthenticatedSessionV1 {
+            principal: PrincipalId::new([4; 16]),
+            session: SessionId::new([5; 16]),
+            administrator: true,
+        })
+        .unwrap();
+
+    assert_eq!(
+        service.execute(first, CommandV1::CurrentPrincipal).unwrap(),
+        ReplyV1::Accepted(OutcomeV1::CurrentPrincipal(
+            aegis_protocol::CurrentPrincipalV1 { principal: [2; 16] }
+        ))
+    );
+    assert_eq!(
+        service
+            .execute(second, CommandV1::CurrentPrincipal)
+            .unwrap(),
+        ReplyV1::Accepted(OutcomeV1::CurrentPrincipal(
+            aegis_protocol::CurrentPrincipalV1 { principal: [4; 16] }
+        ))
+    );
+    assert!(service.close_session(first));
+    assert_eq!(
+        service.execute(first, CommandV1::CurrentPrincipal).unwrap(),
+        ReplyV1::Refused(RefusalV1::UnknownSession)
+    );
+}
+
+#[test]
 fn handles_are_session_local_paged_and_destroyed_by_epoch_or_disconnect() {
     let authority_id = EngineId::new([1; 16]);
     let authority =

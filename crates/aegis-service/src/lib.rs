@@ -135,6 +135,11 @@ impl<S: CheckpointStore> Service<S> {
             ));
         };
         match command {
+            protocol::CommandV1::CurrentPrincipal => Ok(accepted(
+                protocol::OutcomeV1::CurrentPrincipal(protocol::CurrentPrincipalV1 {
+                    principal: entry.facts.principal.into_bytes(),
+                }),
+            )),
             protocol::CommandV1::Issue {
                 expected_epoch,
                 now,

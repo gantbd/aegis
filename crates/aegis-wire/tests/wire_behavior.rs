@@ -15,6 +15,7 @@ fn scope() -> ScopeV1 {
 #[test]
 fn every_command_roundtrips_and_resource_debug_is_redacted() {
     let commands = vec![
+        CommandV1::CurrentPrincipal,
         CommandV1::Issue {
             expected_epoch: 0,
             now: 1,
@@ -78,6 +79,9 @@ fn replies_roundtrip_and_limits_refuse_before_allocation() {
         action: ActionV1::Observe,
     };
     let replies = vec![
+        ReplyV1::Accepted(OutcomeV1::CurrentPrincipal(CurrentPrincipalV1 {
+            principal: [8; 16],
+        })),
         ReplyV1::Accepted(OutcomeV1::GrantIssued(grant)),
         ReplyV1::Accepted(OutcomeV1::Authorized(decision)),
         ReplyV1::Accepted(OutcomeV1::EpochRevoked { epoch: 3 }),
@@ -101,6 +105,7 @@ fn replies_roundtrip_and_limits_refuse_before_allocation() {
         let bytes = encode_reply(&reply, LimitsV1::default()).unwrap();
         assert_eq!(decode_reply(&bytes, LimitsV1::default()).unwrap(), reply);
     }
+    assert!(!format!("{:?}", CurrentPrincipalV1 { principal: [8; 16] }).contains("8, 8"));
     let frame = RequestFrameV1 {
         session: SessionHandleV1(1),
         command: CommandV1::Issue {

@@ -39,6 +39,12 @@ impl<P: ServicePort> Client<P> {
         self.port.execute(self.session, command)
     }
 
+    /// Read-only owner observation for the principal bound to this exact
+    /// service session. The semantic reply remains Aegis-owned.
+    pub fn current_principal(&mut self) -> Result<ReplyV1, P::Error> {
+        self.execute(CommandV1::CurrentPrincipal)
+    }
+
     pub fn into_port(self) -> P {
         self.port
     }

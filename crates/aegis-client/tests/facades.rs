@@ -1,4 +1,6 @@
-use aegis_client::{AdminClient, AuthorityClient, ClientError, ReadOnlyClient, ServicePort};
+use aegis_client::{
+    AdminClient, AuthorityClient, Client, ClientError, ReadOnlyClient, ServicePort,
+};
 use aegis_protocol::{CommandV1, OutcomeV1, ReplyV1, ScopeV1, SessionHandleV1};
 
 #[derive(Default)]
@@ -34,6 +36,13 @@ fn mutation_facade_can_borrow_a_live_port_without_owning_its_connection() {
             scopes,
         }]
     );
+}
+
+#[test]
+fn session_client_observes_only_its_current_principal() {
+    let mut client = Client::new(SessionHandleV1(7), Port::default());
+    client.current_principal().unwrap();
+    assert_eq!(client.into_port().0, vec![CommandV1::CurrentPrincipal]);
 }
 
 #[test]

@@ -55,6 +55,9 @@ impl std::fmt::Debug for ScopeV1 {
 
 #[derive(Clone, Eq, PartialEq)]
 pub enum CommandV1 {
+    /// Observe the principal owned by the exact session carrying this command.
+    /// No caller-supplied identity is accepted and no authority is granted.
+    CurrentPrincipal,
     Issue {
         expected_epoch: u64,
         now: u64,
@@ -92,6 +95,7 @@ pub enum CommandV1 {
 impl std::fmt::Debug for CommandV1 {
     fn fmt(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
+            Self::CurrentPrincipal => formatter.write_str("CurrentPrincipal"),
             Self::Issue {
                 expected_epoch,
                 now,
@@ -151,6 +155,20 @@ impl std::fmt::Debug for CommandV1 {
     }
 }
 
+#[derive(Clone, Copy, Eq, PartialEq)]
+pub struct CurrentPrincipalV1 {
+    pub principal: [u8; 16],
+}
+
+impl std::fmt::Debug for CurrentPrincipalV1 {
+    fn fmt(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        formatter
+            .debug_struct("CurrentPrincipalV1")
+            .field("principal", &"<redacted>")
+            .finish()
+    }
+}
+
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub struct GrantSummaryV1 {
     pub handle: GrantHandleV1,
@@ -179,6 +197,7 @@ pub struct AuthorityStatusV1 {
 
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub enum OutcomeV1 {
+    CurrentPrincipal(CurrentPrincipalV1),
     GrantIssued(GrantSummaryV1),
     Authorized(DecisionSummaryV1),
     EpochRevoked {

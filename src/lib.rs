@@ -32,6 +32,14 @@ id!(SessionId);
 id!(EngineId);
 id!(ResourceId);
 
+impl PrincipalId {
+    /// Projects only the authenticated principal identity needed by bounded
+    /// owner-observation adapters. Other authority identities remain opaque.
+    pub const fn into_bytes(self) -> [u8; 16] {
+        self.0
+    }
+}
+
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub enum PrincipalKindV1 {
     Human,

@@ -208,6 +208,7 @@ fn encode_command(
     limits: LimitsV1,
 ) -> Result<(), CodecErrorV1> {
     match value {
+        CommandV1::CurrentPrincipal => writer.byte(8),
         CommandV1::Issue {
             expected_epoch,
             now,
@@ -300,6 +301,7 @@ fn decode_command(reader: &mut Reader<'_>) -> Result<CommandV1, CodecErrorV1> {
             after: reader.option_u64()?.map(DecisionHandleV1),
             limit: usize::try_from(reader.u64()?).map_err(|_| CodecErrorV1::Limit)?,
         }),
+        8 => Ok(CommandV1::CurrentPrincipal),
         _ => Err(CodecErrorV1::Unsupported),
     }
 }
@@ -346,6 +348,10 @@ fn encode_outcome(
     limits: LimitsV1,
 ) -> Result<(), CodecErrorV1> {
     match value {
+        OutcomeV1::CurrentPrincipal(binding) => {
+            writer.byte(7)?;
+            writer.raw(&binding.principal)
+        }
         OutcomeV1::GrantIssued(summary) => {
             writer.byte(1)?;
             encode_grant(writer, summary)
@@ -435,6 +441,9 @@ fn decode_outcome(reader: &mut Reader<'_>) -> Result<OutcomeV1, CodecErrorV1> {
                 next_after: reader.option_u64()?.map(DecisionHandleV1),
             })
         }
+        7 => Ok(OutcomeV1::CurrentPrincipal(CurrentPrincipalV1 {
+            principal: reader.raw()?,
+        })),
         _ => Err(CodecErrorV1::Unsupported),
     }
 }

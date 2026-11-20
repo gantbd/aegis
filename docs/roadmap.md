@@ -28,6 +28,10 @@
 
 ## Phase 3 — integration
 
+- [Qualified] Expose the exact current Aegis session's owner-retained principal
+  through a zero-payload, read-only, redacted public observation so peer
+  adapters can derive attribution instead of trusting parallel configuration.
+  Cross-component identity equivalence remains a separately qualified relation.
 - [Qualified] Native public continuity/non-amplification contract through durable
   recovery, with protocol-only reusable conformance.
 - [Qualified] Two-daemon-process public-client journey spanning lost revocation

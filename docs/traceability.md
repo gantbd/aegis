@@ -14,6 +14,7 @@
 | A11 public continuity | protocol-only conformance harness over distinct authenticated session profiles and durable reopen | issue denial, cross-session handle refusal, scope/expiry amplification refusal, wrong-resource denial, revocation, historical decision inspection, recovery epoch/session loss and canonical single-bit/byte wire mutation corpus | Satisfied for bounded native service; peer mappings remain separate |
 | A12 rollback witness | optional checkpoint decorator plus independently provisioned exact revision/byte witness | older valid checkpoint, missing state, same-revision fork, skipped witness advancement, publication fencing and recovery refusal | Satisfied for adapter correspondence; concrete external mechanism claims remain separate |
 | A13 peer mappings | peer-owned resource mapping through public session-bound clients | Moira exact-saga `Administer`; Daimon profile plus every distinct tool `Execute`; Hermes exact-stream `Submit`/`Observe` with wrong-action denial; deny/revocation without peer mutation or provider redispatch; one live authority gates discarded-reply Daimon reopen/reauthorizes retained delivery and then grants downstream one-event Hermes publication/readback; independent live Aegis/Hermes daemon qualification | Satisfied for Moira, Daimon and Hermes service/process integrations; production credentials remain deployment-owned |
+| A14 current-session attribution | zero-payload read-only command resolves the exact request session and projects only its owner-retained principal | distinct live sessions return distinct owner principals; closed session refuses; canonical request/reply truncation and redacted Debug; capability-shaped client | Satisfied for exact current-session principal observation; cross-component identity equivalence and authority remain explicit nonclaims |
 
 Release assurance additionally binds the exact 27-component root lockfile to a
 clean RustSec audit at the database revision recorded in
@@ -61,6 +62,11 @@ another session cannot use a handle, disconnect destroys owned handles, epoch
 revocation destroys every live handle, non-admin issuance/inspection refuses, and
 bounded pages expose only redacted grant/delegation/decision summaries. Wire
 codec tests cover every command/outcome, stale-epoch payload, truncation and bounds.
+The separate `CurrentPrincipal` command accepts no identity input and returns
+only the principal retained by the exact resolved session, including for a
+non-administrator; an absent or closed session returns `UnknownSession`. This is
+non-bearer attribution evidence, not authorization, credential disclosure,
+principal enumeration or proof that another component identity is equivalent.
 Mutation commands carry an exact expected epoch and refuse stale requests before
 allocation or durable transition. Capability-shaped mutation, administration and
 read-only clients keep page requests locally bounded. The local daemon qualifies
